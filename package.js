@@ -1,13 +1,13 @@
 Package.describe({
   name: 'mwc:ecmascript',
-  version: '0.0.5',
+  version: '1.0.2',
   summary: 'es6 support for polymer.',
   git: 'https://github.com/meteorwebcomponents/ecmascript',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-  api.use('mwc:compiler@1.1.11');
+  api.use('mwc:compiler@1.1.14');
   api.versionsFrom('1.0');
   api.addFiles(['ecmascript.js'],'server');
   api.export('MWCEcma','server');
