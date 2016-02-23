@@ -1,4 +1,5 @@
 meteor@1.1.10
-mwc:compiler@1.1.7
-mwc:ecmascript@0.0.4
+mwc:compiler@1.1.10
+mwc:ecmascript@0.0.5
+mwc:extensions@0.0.1
 underscore@1.0.4

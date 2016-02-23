@@ -7,7 +7,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.use('mwc:compiler@1.1.10');
+  api.use('mwc:compiler@1.1.11');
   api.versionsFrom('1.0');
   api.addFiles(['ecmascript.js'],'server');
   api.export('MWCEcma','server');
