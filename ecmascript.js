@@ -1,47 +1,81 @@
 var fs = Npm.require("fs"),
   path = Npm.require("path"),
-  babel = Npm.require('babel-core'),
-  babelJSPreset = Npm.require('babel-preset-es2015');
-
+  mkdirp = Npm.require('mkdirp');
 
 function MWC_Ecma(s){
-  this.settings = s;
-  this.publicFolder = path.resolve("./public");
+  this.settings = s || {};
 }
-function _babel(js,opt){
-  return babel.transform(js,opt.babel);
+function _babel(js){
+  var babelOptions = Babel.getDefaultOptions();
+  var opt = MWCEcma.settings;
+  babelOptions = _.extend(babelOptions,opt.babel);
+  var ret = "";
+  if(!opt.limit || js.length < 100*1000 || js.indexOf('skip_mwc_ecmascript') == -1){
+    ret = Babel.compile(js, babelOptions).code;
+  }
+  else{
+    ret = js;
+  }
+  if(opt.log){
+    var d = new Date();
+    var n = d.toTimeString();
+    if(!opt.logFile){
+      var dir = ".mwclogs"
+      mkdirp.sync(dir);
+      opt.logFile =  dir+"/ecmascript.txt";
+    }
+    fs.appendFileSync(opt.logFile,"\n\n\nECMA\n"+n+ "\n\n\n" +JSON.stringify(opt));
+  }
+  return ret;
 }
 
-function _eachScript(html,opt){
+function _eachScript(html){
   var re = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
-  return html.replace(re, '<script>'+_babel('$1',opt).code+'</script>');
+  var result = html.replace(re, function replace(match,content) { 
+    var ret = '<script>'+_babel(content)+'</script>';
+
+    return ret; 
+  });
+
+  return result;
 }
 
-function _eachBody(html,opt){
+function _eachBody(html){
   var re = /<body\b[^>]*>([\s\S]*?)<\/body>/gm;
-  return html.replace(re, _eachScript('$&',opt));
+  var result = html.replace(re, function replace(match) { 
+    return _eachScript(match); 
+  });
+  return result;
 }
 
-function _eachHead(html,opt){
+function _eachHead(html){
   var re = /<head\b[^>]*>([\s\S]*?)<\/head>/gm;
-  return html.replace(re, _eachScript('$&',opt));
+  var result = html.replace(re, function replace(match) { 
+    return _eachScript(match); 
+  });
+  return result;
 }
 
-function _compile(html,opt){
-  var ret =  _eachBody(_eachHead(html,opt),opt);
+function _compile(html){
+  var ret =  _eachBody(_eachHead(html));
   return '<!-- ECMA COMPILED -->' +ret;
 }
 
-MWC_Ecma.prototype.compile =function(html){
-  return _compile(html,this.settings)
+MWC_Ecma.prototype.compile =function(html,opt){
+  _.extend(this.settings , opt);
+  return _compile(html,opt);
 }
 
-MWC_Ecma.prototype.babel = function(js){
-  return _babel(js,this.settings);
+MWC_Ecma.prototype.babel = function(js,opt){
+  _.extend(this.settings , opt);
+  return _babel(js);
 }
-var MWCOpt = {}
-MWCOpt.babel = {
-  presets:[babelJSPreset],
-  compact:true
+var MWCOpt={
+  babel:{
+    sourceMap : false,
+    ast : false,
+    externalHelpers : true
+  },
+  limit:true
 }
 MWCEcma = new MWC_Ecma(MWCOpt);
