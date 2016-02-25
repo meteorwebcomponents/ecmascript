@@ -4,4 +4,4 @@ An ecmascript compiler with ecma2015 preset for [mwc:compiler](https://github.co
 
 ### Usage
 
-`meteor add mwc:ecmascript` and you are good to go.
+`meteor add mwc:compiler`  `meteor add mwc:ecmascript` and you are good to go.
