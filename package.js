@@ -8,9 +8,9 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
-  api.imply('mwc:compiler@1.1.14');
-  api.use('babel-compiler',['server']);
-  api.use('underscore',['server']);
+  api.imply('mwc:compiler@1.1.15');
+  api.use("babel-compiler@5.8.24_1");
+  api.use("underscore");
   api.addFiles(['ecmascript.js'],'server');
   api.export('MWCEcma','server');
 });
