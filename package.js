@@ -1,18 +1,35 @@
+var fs = Npm.require('fs');
+var path = Npm.require('path');
+var _ = Npm.require('underscore');
+
 Package.describe({
   name: 'mwc:ecmascript',
-  version: '1.0.4',
-  summary: 'es6 support for polymer.',
-  git: 'https://github.com/meteorwebcomponents/ecmascript',
-  documentation: 'README.md'
+  version: '1.0.6',
+  summary: "es6 support for polymer.",
+  git: "https://github.com/meteorwebcomponents/ecmascript",
+  documentation: "README.md"
 });
 
-Package.onUse(function(api) {
-  api.versionsFrom('1.0');
-  api.imply('mwc:compiler@1.1.15');
+Package.registerBuildPlugin({
+  name: "initializing-ecma",
+  use: [
+    'underscore'
+  ],
+  sources: [
+    'plugin/ecmascript.js'
+  ],
+  npmDependencies: {
+    'mkdirp': '0.5.0'
+  }
+});
+
+
+Package.on_use(function(api) {
+  api.add_files("ecmascript.js", ["server"]);
+  api.export('MWCEcma',['server']);
+  api.export('MWCEcmascript',['server']);
   api.use("babel-compiler@5.8.24_1");
-  api.use("underscore");
-  api.addFiles(['ecmascript.js'],'server');
-  api.export('MWCEcma','server');
+  api.use("underscore@1.0.4");
 });
 
 Npm.depends({

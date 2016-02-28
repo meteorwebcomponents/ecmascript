@@ -79,3 +79,6 @@ var MWCOpt={
   limit:true
 }
 MWCEcma = new MWC_Ecma(MWCOpt);
+MWCEcmascript = function(html,opt){
+  return MWCEcma.compile(html,opt);
+}
