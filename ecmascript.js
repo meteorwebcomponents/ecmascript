@@ -10,7 +10,7 @@ function _babel(js){
   var opt = MWCEcma.settings;
   babelOptions = _.extend(babelOptions,opt.babel);
   var ret = "";
-  if(!opt.limit || js.length < 100*1000 || js.indexOf('skip_mwc_ecmascript') == -1){
+  if(!opt.limit || (js.length < 100*1000 && js.indexOf('skip_mwc_ecmascript') == -1)){
     ret = Babel.compile(js, babelOptions).code;
   }
   else{
@@ -24,7 +24,7 @@ function _babel(js){
       mkdirp.sync(dir);
       opt.logFile =  dir+"/ecmascript.txt";
     }
-    fs.appendFileSync(opt.logFile,"\n\n\nECMA\n"+n+ "\n\n\n" +JSON.stringify(opt));
+    fs.appendFileSync(opt.logFile,"\n\n\nECMA\n"+n+ "\n\n\n" +ret);
   }
   return ret;
 }
@@ -57,7 +57,7 @@ function _eachHead(html){
 }
 
 function _compile(html){
-  var ret =  _eachBody(_eachHead(html));
+  var ret =  _eachScript(html);
   return '<!-- ECMA COMPILED -->' +ret;
 }
 
@@ -76,7 +76,8 @@ var MWCOpt={
     ast : false,
     externalHelpers : true
   },
-  limit:true
+  limit:true,
+  log:true
 }
 MWCEcma = new MWC_Ecma(MWCOpt);
 MWCEcmascript = function(html,opt){

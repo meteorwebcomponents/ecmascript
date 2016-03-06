@@ -4,7 +4,7 @@ var _ = Npm.require('underscore');
 
 Package.describe({
   name: 'mwc:ecmascript',
-  version: '1.0.6',
+  version: '1.0.7',
   summary: "es6 support for polymer.",
   git: "https://github.com/meteorwebcomponents/ecmascript",
   documentation: "README.md"
@@ -13,7 +13,7 @@ Package.describe({
 Package.registerBuildPlugin({
   name: "initializing-ecma",
   use: [
-    'underscore'
+    'underscore@1.0.4'
   ],
   sources: [
     'plugin/ecmascript.js'
