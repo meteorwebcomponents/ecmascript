@@ -4,7 +4,6 @@ var ver = "1.0.7";
 var rewrite = false;
 var mwcFilePath = path.resolve('client/compiler.mwc.json');
 if(canProceed() && fs.existsSync(mwcFilePath)) {
-
   var mwcFile = JSON.parse(fs.readFileSync(mwcFilePath, 'utf8'));
   var ecma = {"compileFunction":"MWCEcmascript"};
   if(!mwcFile.extensions){
