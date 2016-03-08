@@ -1,12 +1,12 @@
 var path = Npm.require('path');
 var fs = Npm.require('fs');
-var ver = "1.0.7";
+var ver = "1.0.8";
 var rewrite = false;
 var mwcFilePath = path.resolve('client/compiler.mwc.json');
 if(canProceed() && fs.existsSync(mwcFilePath)) {
   var mwcFile = JSON.parse(fs.readFileSync(mwcFilePath, 'utf8'));
   var ecma = {"compileFunction":"MWCEcmascript"};
-  if(!mwcFile.extensions){
+  if(!mwcFile.hasOwnProperty("extensions")){
     mwcFile.extensions = {};
   }
   var ecmaKey;
@@ -22,14 +22,15 @@ if(canProceed() && fs.existsSync(mwcFilePath)) {
       var extData = rewrite ? ecma :  mwcFile.extensions[ecmaKey]
       mwcFile.extensions["mwc:ecmascript@"+ver] = extData;
       mwcFile.extensions = _.omit(mwcFile.extensions,ecmaKey);
+      fs.writeFileSync(mwcFilePath,JSON.stringify(mwcFile,null,4));
     }
 
   }
   else {
     console.log("\n => adding mwc:ecmascript to compiler.mwc.json")
     mwcFile.extensions["mwc:ecmascript@"+ver] = ecma;
+    fs.writeFileSync(mwcFilePath,JSON.stringify(mwcFile,null,4));
   }
-  fs.writeFileSync(mwcFilePath,JSON.stringify(mwcFile,null,4));
 }else{
   //console.log('mwc file not found');
 }
