@@ -47,36 +47,36 @@ Polymer components may contain es6 scripts inside html files. The default ecmasc
 
 1. babel
 
-Default : 
-
-``` js
-
-{
-    sourceMap : false,
-    ast : false,
-    externalHelpers : true
-}
-
-```
-Pass custom settings to babel. Refer http://babeljs.io/docs/usage/options/
+  Default : 
+  
+  ``` js
+  
+  {
+      sourceMap : false,
+      ast : false,
+      externalHelpers : true
+  }
+  
+  ```
+  Pass custom settings to babel. Refer http://babeljs.io/docs/usage/options/
 
 2. limit 
 
-Default : `true`
-
-A 100kB size limit is set by default for faster build time. It avoids bigger files like polymer.js and webcomponents.js which works fine without transpiling as of now.  
+  Default : `true`
+  
+  A 100kB size limit is set by default for faster build time. It avoids bigger files like polymer.js and webcomponents.js which works fine without transpiling as of now.  
 
 3. compileFunction
 
-Default : `"MWCEcmascript"`
-
-MWCEcmascript is the default compile function. You do not need to change that.
+  Default : `"MWCEcmascript"`
+  
+  MWCEcmascript is the default compile function. You do not need to change that.
 
 4. log
 
-Default : `false`
-
-Log processed scripts to .mwclogs/ecmascript.txt.
+  Default : `false`
+  
+  Log processed scripts to .mwclogs/ecmascript.txt.
 
 ###Note
 
