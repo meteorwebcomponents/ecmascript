@@ -77,7 +77,7 @@ var MWCOpt={
     externalHelpers : true
   },
   limit:true,
-  log:true
+  log:false
 }
 MWCEcma = new MWC_Ecma(MWCOpt);
 MWCEcmascript = function(html,opt){
