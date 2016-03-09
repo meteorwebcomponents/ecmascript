@@ -14,7 +14,7 @@ Polymer components may contain es6 scripts inside html files. The default ecmasc
 
 ### Default Settings
 
-```
+``` json
 
 {
   "root" : ".polymer",
