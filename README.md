@@ -77,6 +77,10 @@ Polymer components may contain es6 scripts inside html files. The default ecmasc
   Default : `false`
   
   Log processed scripts to .mwclogs/ecmascript.txt.
+  
+5. skip_mwc_ecmascript
+
+  You can skip a script by adding the line `/*skip_mwc_ecmascript*/` anywhere in the script.
 
 ###Note
 
