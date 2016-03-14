@@ -73,8 +73,7 @@ MWC_Ecma.prototype.babel = function(js,opt){
 var MWCOpt={
   babel:{
     sourceMap : false,
-    ast : false,
-    externalHelpers : true
+    ast : false
   },
   limit:true,
   log:false

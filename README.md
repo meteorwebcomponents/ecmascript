@@ -32,8 +32,7 @@ Polymer components may contain es6 scripts inside html files. The default ecmasc
     "mwc:ecmascript@1.0.10": {
       "babel":{
         "sourceMap" : false,
-        "ast" : false,
-        "externalHelpers" : true
+        "ast" : false
       },
       "limit":true,
       "log":false,
