@@ -1,6 +1,6 @@
 var path = Npm.require('path');
 var fs = Npm.require('fs');
-var ver = "1.0.11";
+var ver = "1.0.12";
 var rewrite = false;
 var mwcFilePath = path.resolve('client/compiler.mwc.json');
 if(canProceed() && fs.existsSync(mwcFilePath)) {
